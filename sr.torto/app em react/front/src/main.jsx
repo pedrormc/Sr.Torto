@@ -4,7 +4,11 @@ import App from './App.jsx';
 import{createBrowserRouter, RouterProvider} from "react-router-dom";
 import Teste from './routes/Teste.jsx';
 import Inicial from './routes/Inicial.jsx';
+import Cadastro from './routes/Cadastro.jsx';
+
+import Casco from './routes/Casco.jsx';
 import Login from './routes/Login.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -23,9 +27,21 @@ const router = createBrowserRouter([
       },
     
       {
-        path: "/login",
-        element : <Login/>,
+        path: "/cadastro",
+        element : <Cadastro/>,
       },
+
+
+       {
+         path: "/login",
+         element : <Login/>,
+       },
+       {
+        path: "/casco",
+        element : <Casco/>,
+       },
+
+
     ]}
     
   ])

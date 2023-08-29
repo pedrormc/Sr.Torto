@@ -1,12 +1,9 @@
 
 import styled from "styled-components";
 import GlobalStyle from "./styles/Global";
-import Form from "./components/Form.jsx";
-import Grid from "./components/Grid";
-import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { Outlet } from "react-router-dom";
+
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -32,6 +29,11 @@ function App() {
       <Container>
         
       <Title>USUÁRIOS</Title>
+
+      </Container>
+        <Outlet/>
+      <Container>
+
 
       </Container>
       <GlobalStyle />
