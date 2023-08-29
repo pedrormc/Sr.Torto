@@ -22,7 +22,7 @@ const Title = styled.h2``;
 
 
 
-function Cadastro() {
+function Admin() {
 
   const [users, setUsers] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
@@ -43,13 +43,13 @@ function Cadastro() {
   return (
     <>
       <Container>
-      <Title>Cadastrar</Title>
+      <Title>Quadro Admin</Title>
 
       <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
 
-      {/* <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} /> */}
+      <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
 
-      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
+      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
 
       </Container>
       <GlobalStyle />
@@ -58,4 +58,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro
+export default Admin

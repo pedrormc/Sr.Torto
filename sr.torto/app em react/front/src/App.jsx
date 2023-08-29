@@ -28,13 +28,14 @@ function App() {
     <>
       <Container>
         
-      <Title>USUÁRIOS</Title>
+      <Title>Navbar</Title>
 
       </Container>
         <Outlet/>
       <Container>
 
-
+      <Title>Footer</Title>
+      
       </Container>
       <GlobalStyle />
         

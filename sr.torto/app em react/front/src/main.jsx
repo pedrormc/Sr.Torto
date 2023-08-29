@@ -8,6 +8,7 @@ import Cadastro from './routes/Cadastro.jsx';
 
 import Casco from './routes/Casco.jsx';
 import Login from './routes/Login.jsx';
+import Admin from './routes/Admin.jsx';
 
 
 
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
        {
         path: "/casco",
         element : <Casco/>,
+       },
+
+       {
+        path: "/admin",
+        element : <Admin/>,
        },
 
 
