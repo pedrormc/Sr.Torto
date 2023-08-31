@@ -49,7 +49,7 @@ function Admin() {
 
       <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
 
-      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
+      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
 
       </Container>
       <GlobalStyle />

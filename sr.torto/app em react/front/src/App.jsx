@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import GlobalStyle from "./styles/Global";
 import { Outlet } from "react-router-dom";
+import Admin from "./routes/Admin";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -31,7 +32,7 @@ function App() {
       <Title>Navbar</Title>
 
       </Container>
-        <Outlet/>
+        <Admin/>
       <Container>
 
       <Title>Footer</Title>
