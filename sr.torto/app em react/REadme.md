@@ -1,5 +1,5 @@
 #para rodar o frontend:
 
-cd front
-npm install
-npm run dev
+cd front;
+npm install;
+npm run dev;
