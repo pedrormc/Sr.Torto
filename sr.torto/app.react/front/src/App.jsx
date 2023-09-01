@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import Admin from "./routes/Admin";
 
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from './contexts/auth.jsx';
+
 
 const Container = styled.div`
   width: 100%;
@@ -27,19 +29,20 @@ function App() {
 
   return (
     <>
+    
       <Container>
         
       <Title>Navbar</Title>
 
       </Container>
-        <Admin/>
+        <Outlet/>
       <Container>
 
       <Title>Footer</Title>
       
       </Container>
       <GlobalStyle />
-        
+      
     </>
   );
 }
