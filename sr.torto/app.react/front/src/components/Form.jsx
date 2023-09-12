@@ -46,10 +46,10 @@ function Form ({ getUsers, onEdit, setOnEdit }){
     if (onEdit) {
       const user = ref.current;
 
-      user.nome.value = onEdit.nome;
+      user.nickname.value = onEdit.nickname;
       user.email.value = onEdit.email;
-      user.fone.value = onEdit.fone;
-      user.data_nascimento.value = onEdit.data_nascimento;
+      user.senha.value = onEdit.senha;
+      
     }
   }, [onEdit]);
 
@@ -59,10 +59,9 @@ function Form ({ getUsers, onEdit, setOnEdit }){
     const user = ref.current;
 
     if (
-      !user.nome.value ||
+      !user.nickname.value ||
       !user.email.value ||
-      !user.fone.value ||
-      !user.data_nascimento.value
+      !user.senha.value 
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -70,29 +69,29 @@ function Form ({ getUsers, onEdit, setOnEdit }){
     if (onEdit) {
       await axios
         .put("http://localhost:8800/" + onEdit.id, {
-          nome: user.nome.value,
+          nickname: user.nickname.value,
           email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
+          senha: user.senha.value,
+          
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
         .post("http://localhost:8800", {
-          nome: user.nome.value,
+          nickname: user.nickname.value,
           email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
+          senha: user.senha.value,
+          
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
 
-    user.nome.value = "";
+    user.nickname.value = "";
     user.email.value = "";
-    user.fone.value = "";
-    user.data_nascimento.value = "";
+    user.senha.value = "";
+    
 
     setOnEdit(null);
     getUsers();
@@ -101,21 +100,19 @@ function Form ({ getUsers, onEdit, setOnEdit }){
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Nome</Label>
-        <Input name="nome" />
+        <Label>nickname</Label>
+        <Input name="nickname" />
       </InputArea>
       <InputArea>
         <Label>E-mail</Label>
         <Input name="email" type="email" />
       </InputArea>
       <InputArea>
-        <Label>Telefone</Label>
-        <Input name="fone" />
+        <Label>Telesenha</Label>
+        <Input name="senha" />
       </InputArea>
-      <InputArea>
-        <Label>Data de Nascimento</Label>
-        <Input name="data_nascimento" type="date" />
-      </InputArea>
+      
+      
 
       <Button type="submit">SALVAR</Button>
     </FormContainer>

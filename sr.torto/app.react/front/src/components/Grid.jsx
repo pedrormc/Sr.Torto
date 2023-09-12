@@ -66,7 +66,7 @@ function Grid({ users, setUsers, setOnEdit }){
         <Tr>
           <Th>Nome</Th>
           <Th>Email</Th>
-          <Th onlyWeb>Fone</Th>
+          <Th onlyWeb>Senha</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
@@ -74,10 +74,10 @@ function Grid({ users, setUsers, setOnEdit }){
       <Tbody>
         {users.map((item, i) => (
           <Tr key={i}>
-            <Td width="30%">{item.nome}</Td>
+            <Td width="30%">{item.nickname}</Td>
             <Td width="30%">{item.email}</Td>
             <Td width="20%" onlyWeb>
-              {item.fone}
+              {item.senha}
             </Td>
             <Td alignCenter width="5%">
               <FaEdit onClick={() => handleEdit(item)} />
