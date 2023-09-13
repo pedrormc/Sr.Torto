@@ -41,7 +41,7 @@ export const Td = styled.td`
   }
 `;
 
-function Grid({ users, setUsers, setOnEdit }){
+function GridUser({ users, setUsers, setOnEdit }){
   const handleEdit = (item) => {
     setOnEdit(item);
   };
@@ -92,4 +92,4 @@ function Grid({ users, setUsers, setOnEdit }){
   );
 };
 
-export default Grid;
+export default GridUser;
