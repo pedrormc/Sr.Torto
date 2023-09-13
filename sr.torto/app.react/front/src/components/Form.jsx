@@ -108,7 +108,7 @@ function Form ({ getUsers, onEdit, setOnEdit }){
         <Input name="email" type="email" />
       </InputArea>
       <InputArea>
-        <Label>Telesenha</Label>
+        <Label>Senha</Label>
         <Input name="senha" />
       </InputArea>
       

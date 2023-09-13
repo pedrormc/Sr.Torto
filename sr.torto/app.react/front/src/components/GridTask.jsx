@@ -64,15 +64,15 @@ function GridTask({ tasks, setTasks, setOnEdit }){
     <Table>
       <Thead>
         <Tr>
-          <Th>Text</Th>
-          <Th>id_player</Th>
-          <Th onlyWeb>Complete</Th>
+          <Th>Nome</Th>
+          <Th>Email</Th>
+          <Th onlyWeb>Senha</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
       </Thead>
       <Tbody>
-      {tasks.map((item, i) => (
+        {tasks && tasks.map((item, i) => (
           <Tr key={i}>
             <Td width="30%">{item.text}</Td>
             <Td width="30%">{item.id_player}</Td>
