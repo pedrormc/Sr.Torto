@@ -30,7 +30,7 @@ export const addTask = (req, res) => {
 
 export const updateTask = (req, res) => {
   const q =
-    "UPDATE users SET `text` = ?, `id_player` = ?, `complete` = ? WHERE `id` = ?";
+    "UPDATE tasks SET `text` = ?, `id_player` = ?, `complete` = ? WHERE `id` = ?";
 
   const values = [
     req.body.text,

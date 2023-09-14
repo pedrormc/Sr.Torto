@@ -14,13 +14,13 @@ router.delete("/:id", deleteUser)
 
 
 
-router.get("/", getTasks)
+ router.get("/task", getTasks)
 
-router.post("/", addTask)
+ router.post("/task", addTask)
 
-router.put("/:id", updateTask)
+ router.put("/:id", updateTask)
 
-router.delete("/:id", deleteTask)
+ router.delete("/:id", deleteTask)
 
 
 

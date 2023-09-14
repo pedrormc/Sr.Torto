@@ -48,7 +48,7 @@ function GridTask({ tasks, setTasks, setOnEdit }){
 
   const handleDelete = async (id) => {
     await axios
-      .delete("http://localhost:8800/" + id)
+      .delete("http://localhost:8700/task" + id)
       .then(({ data }) => {
         const newArray = tasks.filter((task) => task.id !== id);
 
@@ -64,15 +64,15 @@ function GridTask({ tasks, setTasks, setOnEdit }){
     <Table>
       <Thead>
         <Tr>
-          <Th>Nome</Th>
-          <Th>Email</Th>
-          <Th onlyWeb>Senha</Th>
+          <Th>text</Th>
+          <Th>iD player</Th>
+          <Th onlyWeb>complete</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
       </Thead>
       <Tbody>
-        {tasks && tasks.map((item, i) => (
+        {tasks.map((item, i) => (
           <Tr key={i}>
             <Td width="30%">{item.text}</Td>
             <Td width="30%">{item.id_player}</Td>
