@@ -1,7 +1,7 @@
 import express from "express";
 import { addUser, deleteUser, getUsers, updateUser } from "../controllers/user.js";
 import { addTask, deleteTask, getTasks, updateTask } from "../controllers/task.js";
-
+import { login } from "../controllers/auth.js";
 const router = express.Router()
 
 router.get("/user", getUsers)
@@ -21,6 +21,12 @@ router.delete("/user/:id", deleteUser)
  router.put("/task/:id", updateTask)
 
  router.delete("/task/:id", deleteTask)
+
+
+ router.post("/login", login)
+
+
+
 
 
 
