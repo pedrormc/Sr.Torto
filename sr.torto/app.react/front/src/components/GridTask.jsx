@@ -46,11 +46,11 @@ function GridTask({ tasks, setTasks, setOnEdit }){
     setOnEdit(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id_task) => {
     await axios
-      .delete("http://localhost:8700/task" + id)
+      .delete("http://localhost:8800/task/" + id_task)
       .then(({ data }) => {
-        const newArray = tasks.filter((task) => task.id !== id);
+        const newArray = tasks.filter((task) => task.id_task !== id_task);
 
         setTasks(newArray);
         toast.success(data);
@@ -83,7 +83,7 @@ function GridTask({ tasks, setTasks, setOnEdit }){
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
             <Td alignCenter width="5%">
-              <FaTrash onClick={() => handleDelete(item.id)} />
+              <FaTrash onClick={() => handleDelete(item.id_task)} />
             </Td>
           </Tr>
         ))}

@@ -35,7 +35,7 @@ function Admin() {
   const [onEdit, setOnEdit] = useState(null);
   const getUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:8800");
+      const res = await axios.get("http://localhost:8800/user");
       setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
@@ -44,6 +44,11 @@ function Admin() {
   useEffect(() => {
     getUsers();
   }, [setUsers]);
+
+
+
+
+
 
   const [tasks, setTasks] = useState([]);
   //const [onEdit, setOnEdit] = useState(null);
@@ -61,10 +66,7 @@ function Admin() {
 
 
 
-
-
-
-  return (
+    return (
     <>
       <Container>
       <Title>Quadro Admin</Title>

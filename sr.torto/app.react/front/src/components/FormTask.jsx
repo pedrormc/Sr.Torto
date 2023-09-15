@@ -68,7 +68,7 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
 
     if (onEdit) {
       await axios
-        .put("http://localhost:8800/task" + onEdit.id, {
+        .put("http://localhost:8800/task/" + onEdit.id_task, {
           text: task.text.value,
           id_player: task.id_player.value,
           complete: task.complete.value,

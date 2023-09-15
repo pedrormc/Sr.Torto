@@ -4,13 +4,13 @@ import { addTask, deleteTask, getTasks, updateTask } from "../controllers/task.j
 
 const router = express.Router()
 
-router.get("/", getUsers)
+router.get("/user", getUsers)
 
-router.post("/", addUser)
+router.post("/user", addUser)
 
-router.put("/:id", updateUser)
+router.put("/user/:id", updateUser)
 
-router.delete("/:id", deleteUser)
+router.delete("/user/:id", deleteUser)
 
 
 
@@ -18,9 +18,9 @@ router.delete("/:id", deleteUser)
 
  router.post("/task", addTask)
 
- router.put("/:id", updateTask)
+ router.put("/task/:id", updateTask)
 
- router.delete("/:id", deleteTask)
+ router.delete("/task/:id", deleteTask)
 
 
 

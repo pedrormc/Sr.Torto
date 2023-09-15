@@ -46,11 +46,11 @@ function GridUser({ users, setUsers, setOnEdit }){
     setOnEdit(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id_player) => {
     await axios
-      .delete("http://localhost:8800/" + id)
+      .delete("http://localhost:8800/user/" + id_player)
       .then(({ data }) => {
-        const newArray = users.filter((user) => user.id !== id);
+        const newArray = users.filter((user) => user.id_player !== id_player);
 
         setUsers(newArray);
         toast.success(data);
@@ -83,7 +83,7 @@ function GridUser({ users, setUsers, setOnEdit }){
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
             <Td alignCenter width="5%">
-              <FaTrash onClick={() => handleDelete(item.id)} />
+              <FaTrash onClick={() => handleDelete(item.id_player)} />
             </Td>
           </Tr>
         ))}
