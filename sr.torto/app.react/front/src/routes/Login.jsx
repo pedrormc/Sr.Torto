@@ -8,16 +8,16 @@ function Login() {
   const handleLogin = (values) => {
     Axios.post("http://localhost:8800/login", {
       email: values.email,
-      password: values.password,
+      senha: values.senha,
     }).then((response) => {
       alert(response.data.msg);
     });
   };
 
   const handleRegister = (values) => {
-    Axios.post("http://localhost:8800/register", {
+    Axios.post("http://localhost:8800/register/", {
       email: values.email,
-      password: values.password,
+      senha: values.senha,
     }).then((response) => {
       alert(response.data.msg);
       console.log(response);
@@ -29,7 +29,7 @@ function Login() {
       .string()
       .email("email inválido")
       .required("O email é obrigatório"),
-    password: yup
+    senha: yup
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres")
       .required("A senha é obrigatória"),
@@ -40,13 +40,13 @@ function Login() {
       .string()
       .email("email inválido")
       .required("O email é obrigatório"),
-    password: yup
+    senha: yup
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres")
       .required("A senha é obrigatória"),
     confirmation: yup
       .string()
-      .oneOf([yup.ref("password"), null], "As senhas são diferentes")
+      .oneOf([yup.ref("senha"), null], "As senhas são diferentes")
       .required("A confirmação da senha é obrigatória"),
   });
 
@@ -70,11 +70,11 @@ function Login() {
           </div>
           {/*Outro campo*/}
           <div className="form-group">
-            <Field name="password" className="form-field" placeholder="Senha" />
+            <Field name="senha" className="form-field" placeholder="Senha" />
 
             <ErrorMessage
               component="span"
-              name="password"
+              name="senha"
               className="form-error"
             />
           </div>
