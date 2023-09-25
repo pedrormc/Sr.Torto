@@ -16,6 +16,7 @@ function Login() {
 
   const handleRegister = (values) => {
     Axios.post("http://localhost:8800/register/", {
+      nickname: values.nickname,
       email: values.email,
       senha: values.senha,
     }).then((response) => {
@@ -44,14 +45,64 @@ function Login() {
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres")
       .required("A senha é obrigatória"),
-    confirmation: yup
+
+      nickname: yup
       .string()
-      .oneOf([yup.ref("senha"), null], "As senhas são diferentes")
-      .required("A confirmação da senha é obrigatória"),
+      
+      .required("O nickname é obrigatório"),
   });
 
   return (
     <div className="container">
+
+<h1>Cadastro</h1>
+      <Formik
+        initialValues={{}}
+        onSubmit={handleRegister}
+        validationSchema={validationsRegister}
+      >
+        <Form className="register-form">
+          <div className="register-form-group">
+            <Field name="email" className="form-field" placeholder="Email" />
+
+            <ErrorMessage
+              component="span"
+              name="email"
+              className="form-error"
+            />
+          </div>
+
+          <div className="form-group">
+            <Field name="nickname" className="form-field" placeholder="Nickname" />
+
+            <ErrorMessage
+              component="span"
+              name="nickname"
+              className="form-error"
+            />
+          </div>
+
+          <div className="form-group">
+            <Field name="senha" className="form-field" placeholder="Senha" />
+
+            <ErrorMessage
+              component="span"
+              name="senha"
+              className="form-error"
+            />
+          </div>
+
+          <button className="button" type="submit">
+            Cadastrar
+          </button>
+        </Form>
+      </Formik>
+
+
+
+
+
+      
       <h1>Login</h1>
       <Formik
         initialValues={{}}
@@ -84,9 +135,12 @@ function Login() {
           </button>
         </Form>
       </Formik>
+
       
     </div>
   );
 }
+      
+ 
 
 export default Login;
