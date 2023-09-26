@@ -18,7 +18,7 @@ export const register = (req, res) => {
       bcrypt.hash(senha, saltRounds, (err, hash) => {
         db.query(
           "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?)",
-          [nickname, email, senha],
+          [nickname, email, hash],
           (error, response) => {
             if (err) {
               res.send(err);

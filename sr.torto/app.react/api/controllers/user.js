@@ -11,7 +11,11 @@ export const getUsers = (_, res) => {
 };
 
 export const addUser = (req, res) => {
-  const q =
+
+  const qc = 
+    "SELECT * FROM users WHERE email = ?"
+
+  const qd =
     "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?)";
 
   const values = [
@@ -21,7 +25,7 @@ export const addUser = (req, res) => {
     
   ];
 
-  db.query(q, [values], (err) => {
+  db.query(qd, [values], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Usuário criado com sucesso.");

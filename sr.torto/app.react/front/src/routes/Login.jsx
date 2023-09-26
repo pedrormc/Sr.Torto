@@ -15,7 +15,7 @@ function Login() {
   };
 
   const handleRegister = (values) => {
-    Axios.post("http://localhost:8800/register/", {
+    Axios.post("http://localhost:8800/register", {
       nickname: values.nickname,
       email: values.email,
       senha: values.senha,
@@ -32,7 +32,7 @@ function Login() {
       .required("O email é obrigatório"),
     senha: yup
       .string()
-      .min(8, "A senha deve ter pelo menos 8 caracteres")
+      .min(4, "A senha deve ter pelo menos 8 caracteres")
       .required("A senha é obrigatória"),
   });
 
