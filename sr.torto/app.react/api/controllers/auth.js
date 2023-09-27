@@ -50,6 +50,7 @@ export const login = (req, res) => {
         }
         if (response) {
           res.send({ msg: "Usuário logado" });
+          
         } else {
           res.send({ msg: "Senha incorreta" });
         }
