@@ -1,3 +1,5 @@
+https://github.com/pedrormc/Sr.Torto.git
+
 # para rodar o frontend:
 
 cd front;
@@ -9,15 +11,11 @@ cd api;
 yarn add bcrypt body-parser cors express mysql nodemon;
 yarn start;
 
-https://github.com/pedrormc/Sr.Torto.git
 
 
+# criação do banco de dados:
 
-
-# para rodar a api:
-
-create database dbtorta;
-use dbtorta;
+CREATE SCHEMA `dbtorta` ;
 
 
 CREATE TABLE `dbtorta`.`tasks` (
