@@ -33,3 +33,8 @@ CREATE TABLE `dbtorta`.`tasks` (
   `email` VARCHAR(200) NOT NULL,
   `senha` VARCHAR(400) NOT NULL,
   PRIMARY KEY (`id_player`));
+
+
+  # resolver erro banco
+
+  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
