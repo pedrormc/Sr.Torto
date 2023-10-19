@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import{createBrowserRouter, RouterProvider} from "react-router-dom";
 
-import Teste from './routes/Teste.jsx';
+import Home from './routes/Home.jsx';
 import Inicial from './routes/Inicial.jsx';
 import Cadastro from './routes/Cadastro.jsx';
 import Casco from './routes/Casco.jsx';
@@ -21,12 +21,17 @@ const router = createBrowserRouter([
     children:[
       {
         path: "/",
-        element : <Login/>,
+        element : <Inicial/>,
+      },
+
+      {
+        path: "/inicial",
+        element : <Inicial/>,
       },
     
       {
-        path: "/teste",
-        element : <Teste/>,
+        path: "/home",
+        element : <Home/>,
       },
     
       {
