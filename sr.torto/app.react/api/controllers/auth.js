@@ -10,28 +10,28 @@ export const register = (req, res) => {
   const email = req.body.email;
   const senha = req.body.senha;
 
-//   db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     if (result.length == 0) {
-//       bcrypt.hash(senha, saltRounds, (err, hash) => {
-//         db.query(
-//           "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?)",
-//           [nickname, email, hash],
-//           (error, response) => {
-//             if (err) {
-//               res.send(err);
-//             }
+  db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
+     if (err) {
+       res.send(err);
+     }
+     if (result.length == 0) {
+       bcrypt.hash(senha, saltRounds, (err, hash) => {
+         db.query(
+           "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?)",
+           [nickname, email, hash],
+           (error, response) => {
+             if (err) {
+               res.send(err);
+             }
 
-//             res.send({ msg: "Usuário cadastrado com sucesso" });
-//           }
-//         );
-//       });
-//     } else {
-//       res.send({ msg: "Email já cadastrado" });
-//     }
-//   });
+             res.send({ msg: "Usuário cadastrado com sucesso" });
+           }
+         );
+       });
+     } else {
+       res.send({ msg: "Email já cadastrado" });
+     }
+   });
  };
 
 
