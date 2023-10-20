@@ -13,14 +13,14 @@ import Admin from './routes/Admin.jsx';
 
 import { AuthContext } from './contexts/auth.jsx';
 
-function isUserAuthenticated(){
+export function isUserAuthenticated(){
   try{
     const allTokens = document.cookie.split(";");
     let tokenJWT;
 
     for(let i = 0; i < allTokens.length; i++){
       allTokens[i] = allTokens[i].split("=")
-      if(allTokens[i].indexOf(" token") !== -1){
+      if(allTokens[i].indexOf("token") !== -1 || allTokens[i].indexOf(" token") !== 1){
         tokenJWT = allTokens[i][1];
       }
     }
@@ -28,7 +28,7 @@ function isUserAuthenticated(){
     const jwtData = jwtDecode(tokenJWT);
     return true;
   }
-  catch{
+  catch (err){
     return false;
   }
 }
@@ -43,6 +43,11 @@ const router = createBrowserRouter([
         element : <Login/>,
       },
     
+      {
+        path: "inicial",
+        element: <Inicial/>
+      },
+
       {
         path: "/teste",
         element : <Teste/>,
@@ -64,8 +69,8 @@ const router = createBrowserRouter([
        },
 
        {
-        path: "/admin",
-        element : <Admin/>,
+        path: "/admin", 
+        element: <Admin/>,
        },
     ]}
     

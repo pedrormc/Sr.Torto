@@ -3,6 +3,7 @@ import "../styles/Login.css";
 import * as yup from "yup";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import Axios from "axios";
+import { isUserAuthenticated } from "../main";
 
 function Login() {
   const handleLogin = async (values) => {
@@ -17,18 +18,6 @@ function Login() {
         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
         window.location.href = '/admin';
       }
-
-      const allTokens = document.cookie.split(";");
-      let token;
-
-      for(let i = 0; i < allTokens.length; i++){
-        allTokens[i] = allTokens[i].split("=")
-        if(allTokens[i].indexOf(" token") !== -1){
-          token = allTokens[i][1];
-        }
-      }
-
-      console.log(token)
     }
     catch (err){
       console.log(err);
