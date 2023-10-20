@@ -5,13 +5,35 @@ import { ErrorMessage, Formik, Form, Field } from "formik";
 import Axios from "axios";
 
 function Login() {
-  const handleLogin = (values) => {
-    Axios.post("http://localhost:8800/login", {
-      email: values.email,
-      senha: values.senha,
-    }).then((response) => {
+  const handleLogin = async (values) => {
+    try{
+      const response = await Axios.post("http://localhost:8800/login", {
+        email: values.email,
+        senha: values.senha,
+      });
       alert(response.data.msg);
-    });
+      if(response.data.authorized) {
+        const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
+        document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
+        window.location.href = '/admin';
+      }
+
+      const allTokens = document.cookie.split(";");
+      let token;
+
+      for(let i = 0; i < allTokens.length; i++){
+        allTokens[i] = allTokens[i].split("=")
+        if(allTokens[i].indexOf(" token") !== -1){
+          token = allTokens[i][1];
+        }
+      }
+
+      console.log(token)
+    }
+    catch (err){
+      console.log(err);
+    }
+    
   };
 
   const handleRegister = (values) => {

@@ -1,63 +1,53 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 const saltRounds = 10;
 
 
 
-export const register = (req, res) => {
+export const register = async (req, res) => {
 
-  const nickname = req.body.nickname;
-  const email = req.body.email;
-  const senha = req.body.senha;
+  const { nickname, email, senha } = req.body;
 
-  db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
-     if (err) {
-       res.send(err);
-     }
-     if (result.length == 0) {
-       bcrypt.hash(senha, saltRounds, (err, hash) => {
-         db.query(
-           "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?)",
-           [nickname, email, hash],
-           (error, response) => {
-             if (err) {
-               res.send(err);
-             }
-
-             res.send({ msg: "Usuário cadastrado com sucesso" });
-           }
-         );
-       });
-     } else {
-       res.send({ msg: "Email já cadastrado" });
-     }
-   });
- };
-
-
-export const login = (req, res) => {
-  const email = req.body.email;
-  const senha = req.body.senha;
-
-  db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    if (result.length > 0) {
-      bcrypt.compare(senha, result[0].senha, (error, response) => {
-        if (error) {
-          res.send(error);
-        }
-        if (response) {
-          res.send({ msg: "Usuário logado" });
-          
-        } else {
-          res.send({ msg: "Senha incorreta" });
-        }
-      });
+  try{
+    const [result] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+    if (result.length === 0) {
+      const hashedPassword = await bcrypt.hash(senha, saltRounds);
+      const [rows] = await db.query("INSERT INTO USERS(nickname, email, senha) VALUES(?, ?, ?)", [nickname, email, hashedPassword]);
+      res.send({ msg: "Usuário cadastrado com sucesso" });
     } else {
-      res.send({ msg: "Usuário não registrado!" });
+      res.send({ msg: "Email já cadastrado" });
     }
-  });
+  } 
+  catch (err){
+    res.send(err)
+  }
+};
+
+
+export const login = async (req, res) => {
+  const { email, senha } = req.body;
+
+  try{
+    const [result] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+    if (result.length > 0) {
+      const compare = await bcrypt.compare(senha, result[0].senha);
+      if (compare) {
+        const token = jwt.sign(result[0], "TOKEN_SECRET");
+        res.send({
+            authorized: true,
+            msg: "Usuário logado",
+            accessToken: token
+        });
+      } else {
+        res.send({ msg: "Senha incorreta "});
+      }
+    } else {
+      res.send({ msg: "Usuário não registrado" });
+    }
+  } 
+  catch (err){
+    res.send(err);
+  }
 };
 

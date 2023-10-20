@@ -36,7 +36,7 @@ function Admin() {
   const getUsers = async () => {
     try {
       const res = await axios.get("http://localhost:8800/user");
-      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+      setUsers(res.data[0].sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
@@ -55,7 +55,7 @@ function Admin() {
   const getTasks = async () => {
     try {
       const res = await axios.get("http://localhost:8800/task");
-      setTasks(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+      setTasks(res.data[0].sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
