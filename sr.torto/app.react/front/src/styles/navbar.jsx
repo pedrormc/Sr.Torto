@@ -1,10 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
 
-  * {
+  *{
     margin: 0px;
-    padding: 0;
+    padding: 0px;
     font-family: 'poppins', sans-serif;
     
   }
@@ -19,10 +20,10 @@ const GlobalStyle = createGlobalStyle`
   
   ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding-top: 50px;
     overflow: hidden;
-    background-color: #ff8c00;
+    background-color: #E4EFF8;
     text-align: center;
   }
 
@@ -67,11 +68,13 @@ const GlobalStyle = createGlobalStyle`
 
   nav{
     list-style-type:none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
   }
-  #bloco{
-    background-color: #FFBE27;
+  
+  
+  header{
+    background-color: #E4EFF8;
   }
 `;
 

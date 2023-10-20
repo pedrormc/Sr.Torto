@@ -9,7 +9,7 @@ import GlobalStyle from "../styles/Navbar";
 
 
 
-const Bloco = styled.div`
+const Bloco = styled.header`
 
 
   
