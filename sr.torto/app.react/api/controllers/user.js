@@ -2,47 +2,39 @@ import { db } from "../db.js";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
-export const getUsers = (_, res) => {
-  const q = "SELECT * FROM users";
-
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json(data);
-  });
+export const getUsers = async (_, res) => {
+  try{
+    const rows = await db.query("SELECT * FROM users");
+    res.status(200).json(rows);
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
-export const addUser = (req, res) => {
-
-  const qc = 
-    "SELECT * FROM users WHERE email = ?"
-
-  const qd =
-    "INSERT INTO users(`nickname`, `email`, `senha`) VALUES(?,?,?)";
-
+export const addUser = async (req, res) => {
   const values = [
     req.body.nickname,
     req.body.email,
     req.body.senha,
     
   ];
-  db.query("SELECT * FROM users WHERE email = ?", values[1], (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    if (result.length == 0) {
-      bcrypt.hash(values[2], saltRounds, (err, hash) => {
 
-        db.query(qd, [values[0],values[1], hash], (err) => {
-          if (err) return res.json(err);
-      
-          return res.status(200).json("Usuário criado com sucesso.");
-        });
-      });
+  try{
+    const [result] = await db.query("SELECT * FROM users WHERE email = ?", values[1]);
+    if (result.length == 0) {
+      const hashedPassword = bcrypt.hash(values[2], saltRounds)
+
+      const [rows] = await db.query("INSERT INTO users(nickname, email, senha) VALUES(?,?,?)", [values[0],values[1], hash]);
+
+      res.status(200).json("Usuário criado com sucesso.");
     } else {
       res.send({ msg: "Email já cadastrado" });
     }
-  });
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
 //   db.query(qd, [values], (err) => {
@@ -54,10 +46,7 @@ export const addUser = (req, res) => {
 
 
 
-export const updateUser = (req, res) => {
-  const q =
-    "UPDATE users SET `nickname` = ?, `email` = ?, `senha` = ? WHERE `id_player` = ?";
-
+export const updateUser = async (req, res) => {
   const values = [
     req.body.nickname,
     req.body.email,
@@ -65,19 +54,21 @@ export const updateUser = (req, res) => {
    
   ];
 
-  db.query(q, [...values, req.params.id], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Usuário atualizado com sucesso.");
-  });
+  try{
+    const [rows] = await db.query("UPDATE users SET nickname = ?, email = ?, senha = ? WHERE id_player = ?", [...values, req.params.id]);
+    res.status(200).json("Usuário atualizado com sucesso.");
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
-export const deleteUser = (req, res) => {
-  const q = "DELETE FROM users WHERE `id_player` = ?";
-
-  db.query(q, [req.params.id], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Usuário deletado com sucesso.");
-  });
+export const deleteUser = async (req, res) => {
+  try{
+    const [rows] = await db.query("DELETE FROM users WHERE id_player = ?", [req.params.id]);
+    res.status(200).json("Usuário deletado com sucesso");
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };

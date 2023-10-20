@@ -1,37 +1,32 @@
 import { db } from "../db.js";
 
-export const getTasks = (_, res) => {
-  const q = "SELECT * FROM tasks";
-
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json(data);
-  });
+export const getTasks = async (_, res) => {
+  try{
+    const rows = await db.query("SELECT * FROM tasks");
+    res.status(200).json(rows);
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
-export const addTask = (req, res) => {
-  const q =
-    "INSERT INTO tasks(`text`, `id_player`, `complete`) VALUES(?)";
-
+export const addTask = async (req, res) => {
   const values = [
     req.body.text,
     req.body.id_player,
     req.body.complete,
-    
   ];
 
-  db.query(q, [values], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Task adicionada com sucesso.");
-  });
+  try{
+    const [rows] = await db.query("INSERT INTO tasks(`text`, `id_player`, `complete`) VALUES(?, ?, ?)", [values]);
+    res.status(200).json("Task adicionada com sucesso.");
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
-export const updateTask = (req, res) => {
-  const q =
-    "UPDATE tasks SET `text` = ?, `id_player` = ?, `complete` = ? WHERE `id_task` = ?";
-
+export const updateTask = async (req, res) => {
   const values = [
     req.body.text,
     req.body.id_player,
@@ -39,19 +34,22 @@ export const updateTask = (req, res) => {
    
   ];
 
-  db.query(q, [...values, req.params.id], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Task atualizada com sucesso.");
-  });
+  try{
+    const [rows] = await db.query("UPDATE tasks SET `text` = ?, `id_player` = ?, `complete` = ? WHERE `id_task` = ?", [...values, req.params.id]);
+    res.status(200).json("Task atualizada com sucesso.");
+  } 
+  catch (err){
+    res.status(500).send(err);
+  }
 };
 
-export const deleteTask = (req, res) => {
-  const q = "DELETE FROM tasks WHERE `id_task` = ?";
-
-  db.query(q, [req.params.id], (err) => {
-    if (err) return res.json(err);
-
-    return res.status(200).json("Task deletada com sucesso.");
-  });
+export const deleteTask = async (req, res) => {
+  try{
+    const [rows] = await db.query("DELETE FROM tasks WHERE `id_task` = ?", [req.params.id]);
+    res.status(200).json("Task deletada com sucesso.");
+  }
+  catch (err){
+    res.status(500).send(err);
+  }
+  
 };
