@@ -45,13 +45,13 @@ export const login = async (req, res) => {
 };
 
 function hashPassword(password) {
-  // Esta função cria um hash usando SHA-256, uma função de hash criptográfica do Node.js
+  
   const hash = crypto.createHash("sha256");
   return hash.update(password).digest("hex");
 }
 
 function comparePassword(inputPassword, hashedPassword) {
-  // Esta função compara a senha inserida com a senha armazenada no banco de dados
+  
   const inputHash = hashPassword(inputPassword);
   return inputHash === hashedPassword;
 }

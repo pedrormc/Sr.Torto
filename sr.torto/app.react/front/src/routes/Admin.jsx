@@ -35,7 +35,7 @@ function Admin() {
   const [onEdit, setOnEdit] = useState(null);
   const getUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/user");
+      const res = await axios.get("https://api-c0ie.onrender.com/user");
       setUsers(res.data[0].sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
@@ -54,7 +54,7 @@ function Admin() {
   //const [onEdit, setOnEdit] = useState(null);
   const getTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/task");
+      const res = await axios.get("https://api-c0ie.onrender.com/task");
       setTasks(res.data[0].sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
