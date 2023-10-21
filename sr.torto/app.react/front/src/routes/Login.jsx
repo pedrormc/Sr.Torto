@@ -25,12 +25,12 @@ function Login() {
   };
 
   const handleRegister = (values) => {
-    Axios.post("http://localhost:8800/register", {
+    Axios.post("http://localhost:8800/user", {
       nickname: values.nickname,
       email: values.email,
       senha: values.senha,
     }).then((response) => {
-      alert(response.data.msg);
+      alert(response.data);
       console.log(response);
     });
   };

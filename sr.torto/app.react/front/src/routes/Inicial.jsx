@@ -31,6 +31,7 @@ function findTokenJWT(){
 
 const Inicial = () => {
   const [tasks, setTasks] = useState([]);
+  const [tasksID, setTasksID] = useState([]);
   const [userNickname, setUserNickname] = useState('');
 
   useEffect(() => {
@@ -47,8 +48,10 @@ const Inicial = () => {
         });
         
         const allUncompletedTasksData = request.data[0].filter(object => object.complete === 0);
+        const taskIDs = request.data[0].map(object => object.id_task);
         const taskTexts = allUncompletedTasksData.map(object => object.text);
-        
+
+        setTasksID(taskIDs);
         setTasks(taskTexts);
       } catch (error) {
         console.error('Erro ao decodificar o token JWT:', error);
@@ -58,11 +61,41 @@ const Inicial = () => {
     fetchData();
   }, []);
 
+  const [taskStatus, setTaskStatus] = useState(Array(tasks.length).fill(false));
+
+  const handleCheckboxToggle = (index) => {
+    const newTaskStatus = taskStatus;
+    newTaskStatus[index] = !newTaskStatus[index];
+    setTaskStatus(newTaskStatus);
+  };
+
+  const deleteTask = async (taskIndex) => {
+    const confirm = window.confirm("Tem certeza que você completou essa task?")
+    if(confirm) {
+      handleCheckboxToggle(taskIndex);
+      try {
+        const id_task = tasksID[taskIndex];
+        const request = await axios.delete(`http://localhost:8800/task/${id_task}`);
+        const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
+        setTasks(updatedTasks);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
   return (
     <div>
       <h1>Bem vindo {userNickname}!</h1>
       {tasks.map((task, index) => (
         <div key={index}>
+          <input
+            type="checkbox"
+            checked={taskStatus[index]}
+            onChange={() => {
+              deleteTask(index)
+            }}
+          />
           {task}
         </div>
       ))}
