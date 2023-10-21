@@ -4,7 +4,8 @@ import crypto from "crypto";
 export const getUsers = async (_, res) => {
   try {
     const rows = await db.query("SELECT * FROM users");
-    res.status(200).json(rows);
+    const users = JSON.parse(rows); // Analisar a resposta do banco de dados como JSON
+    res.status(200).json(users); // Enviar os dados analisados como resposta
   } catch (err) {
     res.status(500).send(err);
   }
@@ -20,7 +21,7 @@ export const addUser = async (req, res) => {
   try {
     const [result] = await db.query("SELECT * FROM users WHERE email = ?", values[1]);
     if (result.length == 0) {
-      const hashedPassword = hashPassword(values[2]); // Função para criar um hash da senha
+      const hashedPassword = hashPassword(values[2]); 
 
       const [rows] = await db.query("INSERT INTO users(nickname, email, senha) VALUES(?,?,?)", [
         values[0],
@@ -45,7 +46,7 @@ export const updateUser = async (req, res) => {
   ];
 
   try {
-    const hashedPassword = hashPassword(values[2]); // Função para criar um novo hash da senha
+    const hashedPassword = hashPassword(values[2]); 
 
     const [rows] = await db.query("UPDATE users SET nickname = ?, email = ?, senha = ? WHERE id_player = ?", [
       values[0],
@@ -69,7 +70,7 @@ export const deleteUser = async (req, res) => {
 };
 
 function hashPassword(password) {
-  // Esta função cria um hash usando SHA-256, uma função de hash criptográfica do Node.js
+  
   const hash = crypto.createHash("sha256");
   return hash.update(password).digest("hex");
 }
