@@ -2,19 +2,16 @@
   "name": "api",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "MIT",
   "engines": {
     "node": ">=16.14"
   },
-  
-  
   "type": "module",
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
