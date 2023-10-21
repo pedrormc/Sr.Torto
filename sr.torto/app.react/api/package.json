@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "pm2 start index.js "
+    "start": "pm2 start index.js --no-daemon "
   },
   "keywords": [],
   "author": "",
