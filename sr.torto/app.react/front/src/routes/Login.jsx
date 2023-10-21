@@ -25,12 +25,12 @@ function Login() {
   };
 
   const handleRegister = (values) => {
-    Axios.post("https://api-c0ie.onrender.com/register", {
+    Axios.post("https://api-c0ie.onrender.com/user", {
       nickname: values.nickname,
       email: values.email,
       senha: values.senha,
     }).then((response) => {
-      alert(response.data.msg);
+      alert(response.data);
       console.log(response);
     });
   };
