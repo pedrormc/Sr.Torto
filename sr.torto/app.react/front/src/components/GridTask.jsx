@@ -67,6 +67,7 @@ function GridTask({ tasks, setTasks, setOnEdit }){
           <Th>text</Th>
           <Th>iD player</Th>
           <Th onlyWeb>complete</Th>
+          <Th>User ID</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
@@ -78,6 +79,9 @@ function GridTask({ tasks, setTasks, setOnEdit }){
             <Td width="30%">{item.id_player}</Td>
             <Td width="20%" onlyWeb>
               {item.complete}
+            </Td>
+            <Td width="20%">
+              {item.user_id}
             </Td>
             <Td alignCenter width="5%">
               <FaEdit onClick={() => handleEdit(item)} />
