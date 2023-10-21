@@ -1,13 +1,11 @@
 import { db } from "../db.js";
-import bcrypt from "bcrypt";
-const saltRounds = 10;
+import crypto from "crypto";
 
 export const getUsers = async (_, res) => {
-  try{
+  try {
     const rows = await db.query("SELECT * FROM users");
     res.status(200).json(rows);
-  }
-  catch (err){
+  } catch (err) {
     res.status(500).send(err);
   }
 };
@@ -17,58 +15,61 @@ export const addUser = async (req, res) => {
     req.body.nickname,
     req.body.email,
     req.body.senha,
-    
   ];
 
-  try{
+  try {
     const [result] = await db.query("SELECT * FROM users WHERE email = ?", values[1]);
     if (result.length == 0) {
-      const hashedPassword = bcrypt.hash(values[2], saltRounds)
+      const hashedPassword = hashPassword(values[2]); // Função para criar um hash da senha
 
-      const [rows] = await db.query("INSERT INTO users(nickname, email, senha) VALUES(?,?,?)", [values[0],values[1], hash]);
+      const [rows] = await db.query("INSERT INTO users(nickname, email, senha) VALUES(?,?,?)", [
+        values[0],
+        values[1],
+        hashedPassword,
+      ]);
 
       res.status(200).json("Usuário criado com sucesso.");
     } else {
       res.send({ msg: "Email já cadastrado" });
     }
-  }
-  catch (err){
+  } catch (err) {
     res.status(500).send(err);
   }
 };
-
-//   db.query(qd, [values], (err) => {
-//     if (err) return res.json(err);
-
-//     return res.status(200).json("Usuário criado com sucesso.");
-//   });
-
-
-
 
 export const updateUser = async (req, res) => {
   const values = [
     req.body.nickname,
     req.body.email,
     req.body.senha,
-   
   ];
 
-  try{
-    const [rows] = await db.query("UPDATE users SET nickname = ?, email = ?, senha = ? WHERE id_player = ?", [...values, req.params.id]);
+  try {
+    const hashedPassword = hashPassword(values[2]); // Função para criar um novo hash da senha
+
+    const [rows] = await db.query("UPDATE users SET nickname = ?, email = ?, senha = ? WHERE id_player = ?", [
+      values[0],
+      values[1],
+      hashedPassword,
+      req.params.id,
+    ]);
     res.status(200).json("Usuário atualizado com sucesso.");
-  }
-  catch (err){
+  } catch (err) {
     res.status(500).send(err);
   }
 };
 
 export const deleteUser = async (req, res) => {
-  try{
+  try {
     const [rows] = await db.query("DELETE FROM users WHERE id_player = ?", [req.params.id]);
     res.status(200).json("Usuário deletado com sucesso");
-  }
-  catch (err){
+  } catch (err) {
     res.status(500).send(err);
   }
 };
+
+function hashPassword(password) {
+  // Esta função cria um hash usando SHA-256, uma função de hash criptográfica do Node.js
+  const hash = crypto.createHash("sha256");
+  return hash.update(password).digest("hex");
+}
