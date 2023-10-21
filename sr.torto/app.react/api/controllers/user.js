@@ -4,8 +4,7 @@ import crypto from "crypto";
 export const getUsers = async (_, res) => {
   try {
     const rows = await db.query("SELECT * FROM users");
-    const users = JSON.parse(rows); // Analisar a resposta do banco de dados como JSON
-    res.status(200).json(users); // Enviar os dados analisados como resposta
+    res.status(200).json(rows);
   } catch (err) {
     res.status(500).send(err);
   }
