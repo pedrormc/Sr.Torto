@@ -68,7 +68,7 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
 
     if (onEdit) {
       await axios
-        .put("http://localhost:8800/task/" + onEdit.id_task, {
+        .put("https://api-c0ie.onrender.com/task/" + onEdit.id_task, {
           text: task.text.value,
           id_player: task.id_player.value,
           complete: task.complete.value,
@@ -78,7 +78,7 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
-        .post("http://localhost:8800/task", {
+        .post("https://api-c0ie.onrender.com/task", {
           text: task.text.value,
           id_player: task.id_player.value,
           complete: task.complete.value,

@@ -48,7 +48,7 @@ function GridTask({ tasks, setTasks, setOnEdit }){
 
   const handleDelete = async (id_task) => {
     await axios
-      .delete("http://localhost:8800/task/" + id_task)
+      .delete("https://api-c0ie.onrender.com/task/" + id_task)
       .then(({ data }) => {
         const newArray = tasks.filter((task) => task.id_task !== id_task);
 
