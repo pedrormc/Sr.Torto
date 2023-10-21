@@ -82,7 +82,7 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
           text: task.text.value,
           id_player: task.id_player.value,
           complete: task.complete.value,
-          
+          user_id: task.user_id.value
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -91,6 +91,7 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
     task.text.value = "";
     task.id_player.value = "";
     task.complete.value = "";
+    task.user_id.value = "";
     
 
     setOnEdit(null);
@@ -110,6 +111,10 @@ function FormTask ({ getTasks, onEdit, setOnEdit }){
       <InputArea>
         <Label>complete</Label>
         <Input name="complete" />
+      </InputArea>
+      <InputArea>
+        <Label>User ID</Label>
+        <Input name="user_id" />
       </InputArea>
       
       
