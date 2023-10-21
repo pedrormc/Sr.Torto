@@ -1,8 +1,12 @@
 import { db } from "../db.js";
 
-export const getTasks = async (_, res) => {
+export const getTasks = async (req, res) => {
+  const user_id = req.query.user_id
+
   try{
-    const rows = await db.query("SELECT * FROM tasks");
+    let rows;
+    if(user_id) rows = await db.query("SELECT * FROM tasks WHERE user_id = ?", [user_id]);
+    else rows = await db.query("SELECT * FROM tasks");
     res.status(200).json(rows);
   }
   catch (err){
@@ -15,14 +19,16 @@ export const addTask = async (req, res) => {
     req.body.text,
     req.body.id_player,
     req.body.complete,
+    req.body.user_id
   ];
 
   try{
-    const [rows] = await db.query("INSERT INTO tasks(`text`, `id_player`, `complete`) VALUES(?, ?, ?)", [values]);
+    const [rows] = await db.query("INSERT INTO tasks(`text`, `id_player`, `complete`, `user_id`) VALUES(?)", [values]);
     res.status(200).json("Task adicionada com sucesso.");
   }
   catch (err){
-    res.status(500).send(err);
+    if(err.sqlState == 23000) res.send("User_id não corresponde a um id_player")
+    else res.status(500).send(err);
   }
 };
 
