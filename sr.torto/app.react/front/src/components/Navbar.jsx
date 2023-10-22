@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Se você estiver usando React Router para navegação
 import styled from "styled-components"
-import GlobalStyle from "../styles/Navbar";
+import GlobalStyle from "../styles/navbar";
 
 
 
