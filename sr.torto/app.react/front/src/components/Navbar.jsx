@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Se você estiver usando React Router para navegação
 import styled from "styled-components"
 import GlobalStyle from "../styles/navbar";
+import image from '../img/logo-torta.png'
 
 
 
@@ -33,7 +34,7 @@ const Navbar = () => {
 
     <Bloco>
     <Nav>
-      <Logo><img src="./src/img/logo-torta.png" alt="seila" />aaaaLogo</Logo>
+      <Logo><img src={image} alt="seila" />aaaaLogo</Logo>
       <Ul>
         <Li><Link to="/home">Home</Link></Li>
         <Li><Link to="/cadastro">Cadastro</Link></Li>
