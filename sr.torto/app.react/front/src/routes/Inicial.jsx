@@ -70,12 +70,12 @@ const Inicial = () => {
   };
 
   const deleteTask = async (taskIndex) => {
-    const confirm = window.confirm("Tem certeza que você completou essa task?")
+    const confirm = window.confirm("Você deseja marcar essa task como concluída?")
     if(confirm) {
       handleCheckboxToggle(taskIndex);
       try {
         const id_task = tasksID[taskIndex];
-        const request = await axios.delete(`http://localhost:8800/task/${id_task}`);
+        const request = await axios.patch(`http://localhost:8800/task/${id_task}`);
         const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
         setTasks(updatedTasks);
       } catch (err) {

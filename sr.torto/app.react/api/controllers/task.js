@@ -1,7 +1,7 @@
 import { db } from "../db.js";
 
 export const getTasks = async (req, res) => {
-  const user_id = req.query.user_id
+  const user_id = req.query.user_id;
 
   try{
     let rows;
@@ -13,6 +13,18 @@ export const getTasks = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+export const getTasksCompleted = async (req, res) => {
+  const user_id = req.query.user_id;
+
+  try{
+    const [rows] = await db.query("SELECT * FROM tasks WHERE user_id = ? AND complete = 1", [user_id]);
+    res.status(200).json(rows);
+  } 
+  catch (err){
+    res.status(500).send(err);
+  }
+}
 
 export const addTask = async (req, res) => {
   const values = [
@@ -37,7 +49,6 @@ export const updateTask = async (req, res) => {
     req.body.text,
     req.body.id_player,
     req.body.complete,
-   
   ];
 
   try{
@@ -59,3 +70,15 @@ export const deleteTask = async (req, res) => {
   }
   
 };
+
+export const updateTaskCompleted = async (req, res) => {
+  const task_id = req.params.id;
+
+  try {
+    const [rows] = await db.query("UPDATE tasks SET `COMPLETE` = 1 WHERE `id_task` = ?", [task_id]);
+    res.status(200).json("Tarefa assinalada como concluída");
+  } 
+  catch (err){
+    res.status(500).send(err);
+  }
+}
