@@ -10,8 +10,7 @@ import Cadastro from './routes/Cadastro.jsx';
 import Casco from './routes/Casco.jsx';
 import Login from './routes/Login.jsx';
 import Admin from './routes/Admin.jsx';
-
-import { AuthContext } from './contexts/auth.jsx';
+import Teste from './routes/Teste.jsx';
 
 function isUserAuthenticated(){
   try{
@@ -71,6 +70,11 @@ const router = createBrowserRouter([
        {
         path: "/admin",
         element : <Admin/>,
+       },
+
+       {
+        path: "/teste",
+        element : <Teste/>,
        },
 
 
