@@ -1,11 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Tempesta Seven';
-    src: url('../fontes/pf_tempesta_seven_compressed_bold.ttf') format('truetype');
-    /* Adicione outras propriedades de fonte conforme necessário, como font-weight, font-style, etc. */
-  }
+  @import url('https://fonts.cdnfonts.com/css/pf-tempesta-seven');
 
   * {
     margin: 0;
@@ -20,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #253640;
+    background-color: rgba(37, 54, 64, 1);
   }
 `;
 
