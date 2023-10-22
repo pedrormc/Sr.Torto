@@ -41,7 +41,7 @@ const Inicial = () => {
         const firstChar = jwtData.nickname.charAt(0).toUpperCase();
         setUserNickname(firstChar + jwtData.nickname.substring(1));
         
-        const request = await axios.get('http://localhost:8800/task', {
+        const request = await axios.get('https://api-c0ie.onrender.com/task', {
           params: {
             user_id: jwtData.id_player
           }
@@ -75,7 +75,7 @@ const Inicial = () => {
       handleCheckboxToggle(taskIndex);
       try {
         const id_task = tasksID[taskIndex];
-        const request = await axios.patch(`http://localhost:8800/task/${id_task}`);
+        const request = await axios.patch(`https://api-c0ie.onrender.com/task/${id_task}`);
         const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
         setTasks(updatedTasks);
       } catch (err) {
