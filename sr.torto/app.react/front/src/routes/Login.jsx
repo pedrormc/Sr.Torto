@@ -86,7 +86,6 @@ function Login() {
       if (response.data.authorized) {
         const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
-        window.location.href = "/admin";
       }
     } catch (err) {
       console.log(err);
