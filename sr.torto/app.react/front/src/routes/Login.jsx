@@ -7,7 +7,7 @@ import Axios from "axios";
 function Login() {
   const handleLogin = async (values) => {
     try{
-      const response = await Axios.post("http://localhost:8800/login", {
+      const response = await Axios.post("https://api-c0ie.onrender.com/login", {
         email: values.email,
         senha: values.senha,
       });
@@ -25,7 +25,7 @@ function Login() {
   };
 
   const handleRegister = (values) => {
-    Axios.post("http://localhost:8800/user", {
+    Axios.post("https://api-c0ie.onrender.com/user", {
       nickname: values.nickname,
       email: values.email,
       senha: values.senha,

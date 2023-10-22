@@ -68,7 +68,7 @@ function Form ({ getUsers, onEdit, setOnEdit }){
 
     if (onEdit) {
       await axios
-        .put("http://localhost:8800/user/" + onEdit.id_player, {
+        .put("https://api-c0ie.onrender.com/user/" + onEdit.id_player, {
           nickname: user.nickname.value,
           email: user.email.value,
           senha: user.senha.value,
@@ -78,7 +78,7 @@ function Form ({ getUsers, onEdit, setOnEdit }){
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
-        .post("http://localhost:8800/user", {
+        .post("https://api-c0ie.onrender.com/user", {
           nickname: user.nickname.value,
           email: user.email.value,
           senha: user.senha.value,
