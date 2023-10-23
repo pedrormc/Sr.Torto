@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 
 function Login() {
-  const ref = useRef();
+  const refa = useRef();
+  const refb = useRef();
+
 
   useEffect(() => {
     const signUpButton = document.getElementById("signUp");
@@ -30,20 +32,25 @@ function Login() {
     };
   }, []); 
 
-  const handleLogin = async (values) => {
-    
+  const handleLogin = async (e,values) => {
+    e.preventDefault();
     try{
+      const formDatas = new FormData(refb.current);
+
+    const user = {
+      nickname: formDatas.get("nickname"),
+      email: formDatas.get("emails"),
+      senha: formDatas.get("senhas")
+    };
       
-      const response = await axios.post("http://localhost:8800/login", {
-        email: values.email,
-        senha: values.senha,
-      });
+      const response = await axios.post("https://api-c0ie.onrender.com/user", user);
+      toast.success("Usuário logado!");
       alert(response.data.msg);
       if(response.data.authorized) {
-        const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
-        document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
-        window.location.href = '/admin';
-      }
+         const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
+         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
+         window.location.href = '/admin';
+       }
     }
     catch (err){
       console.log(err);
@@ -52,9 +59,9 @@ function Login() {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
+    
 
-    const formData = new FormData(ref.current);
+    const formData = new FormData(refa.current);
 
     const user = {
       nickname: formData.get("nickname"),
@@ -68,7 +75,7 @@ function Login() {
       try {
         await axios.post("https://api-c0ie.onrender.com/user", user);
         toast.success("Usuário criado com sucesso!");
-        ref.current.reset(); // Limpa o formulário após o envio bem-sucedido
+        refa.current.reset(); // Limpa o formulário após o envio bem-sucedido
       } catch (error) {
         toast.error("Erro ao criar usuário. Por favor, tente novamente.");
       }
@@ -82,7 +89,7 @@ function Login() {
 
         
 
-          <form ref={ref} onSubmit={handleRegister} >
+          <form ref={refa} onSubmit={handleRegister} >
             <h1 className="texto-pixel">Criar conta</h1>
             <div className="social-container"></div>
 
@@ -96,22 +103,19 @@ function Login() {
         </div>
 
         <div className="form-container sign-in-container">
-        <Formik
-        initialValues={{}}
-        onSubmit={handleLogin}
-        
-      >
-          <form >
+
+       
+          <form ref={refb} onSubmit={handleLogin}>
             <h1 className="texto-pixel">Login</h1>
             <div className="social-container"></div>
 
-            <input name="email" type="email" placeholder="Email" />
+            <input name="emails" type="email" placeholder="Email" />
             
-            <input name="senha" type="password" placeholder="Senha" />
+            <input name="senhas" type="password" placeholder="Senha" />
 
             <button type="submit">Entrar</button>
           </form>
-          </Formik>
+          
           
         </div>
 
