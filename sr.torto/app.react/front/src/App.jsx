@@ -10,6 +10,7 @@ import Login from "./routes/Login";
 import "react-toastify/dist/ReactToastify.css";
 
 import  Navbar  from "./components/Navbar";
+import Teste from "./routes/Teste";
 
 
 const Container = styled.div`
@@ -31,7 +32,7 @@ function App() {
     
       
         
-      <Navbar/>
+      <Teste/>
       <Container>
 
        </Container>
