@@ -1,14 +1,10 @@
-import React, { useRef, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import "../styles/Login.css";
-import { toast } from "react-toastify";
+import * as yup from "yup";
 import { ErrorMessage, Formik, Form, Field } from "formik";
+import Axios from "axios";
 
-function Login() {
-  const refa = useRef();
-  const refb = useRef();
-
-
+const Login = () => {
   useEffect(() => {
     const signUpButton = document.getElementById("signUp");
     const signInButton = document.getElementById("signIn");
@@ -31,26 +27,19 @@ function Login() {
       signInButton.removeEventListener("click", handleSignInClick);
     };
   }, []); 
-
-  const handleLogin = async (e,values) => {
-    e.preventDefault();
+  const handleLogin = async (values) => {
     try{
-      const formDatas = new FormData(refb.current);
-
-    const user = {
-      nickname: formDatas.get("nickname"),
-      email: formDatas.get("emails"),
-      senha: formDatas.get("senhas")
-    };
-      
-      const response = await axios.post("https://api-c0ie.onrender.com/user", user);
-      toast.success("Usuário logado!");
+      const response = await Axios.post("https://api-c0ie.onrender.com/login", {
+        email: values.email,
+        senha: values.senha,
+      });
       alert(response.data.msg);
       if(response.data.authorized) {
-         const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
-         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
-         window.location.href = '/admin';
-       }
+        const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
+        document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
+        window.location.href = '/home';
+        
+      }
     }
     catch (err){
       console.log(err);
@@ -58,68 +47,139 @@ function Login() {
     
   };
 
-  const handleRegister = async (e) => {
-    
-
-    const formData = new FormData(refa.current);
-
-    const user = {
-      nickname: formData.get("nickname"),
-      email: formData.get("email"),
-      senha: formData.get("senha")
-    };
-
-    if (!user.nickname || !user.email || !user.senha) {
-      return toast.warn("Preencha todos os campos!");
-    } else {
-      try {
-        await axios.post("https://api-c0ie.onrender.com/user", user);
-        toast.success("Usuário criado com sucesso!");
-        refa.current.reset(); // Limpa o formulário após o envio bem-sucedido
-      } catch (error) {
-        toast.error("Erro ao criar usuário. Por favor, tente novamente.");
-      }
-    }
+  const handleRegister = (values) => {
+    Axios.post("https://api-c0ie.onrender.com/user", {
+      nickname: values.nickname,
+      email: values.email,
+      senha: values.senha,
+    }).then((response) => {
+      alert(response.data);
+      console.log(response);
+    });
   };
+
+  const validationsLogin = yup.object().shape({
+    email: yup
+      .string()
+      .email("email inválido")
+      .required("O email é obrigatório"),
+    senha: yup
+      .string()
+      .min(4, "A senha deve ter pelo menos 8 caracteres")
+      .required("A senha é obrigatória"),
+  });
+
+  const validationsRegister = yup.object().shape({
+    email: yup
+      .string()
+      .email("email inválido")
+      .required("O email é obrigatório"),
+    senha: yup
+      .string()
+      .min(8, "A senha deve ter pelo menos 8 caracteres")
+      .required("A senha é obrigatória"),
+
+      nickname: yup
+      .string()
+      
+      .required("O nickname é obrigatório"),
+  });
 
   return (
     <>
-      <div className="container" id="container">
-        <div className="form-container sign-up-container">
-
+    <div className="container" id="container">
+      
+      <div className="form-container sign-up-container">
+      <Formik
+        initialValues={{}}
+        onSubmit={handleRegister}
+        validationSchema={validationsRegister}
+      >
         
+        <Form className="form">
+        <h1 className="texto-pixel">Cadastro</h1>
+          <div className="register-form-group">
+            <Field name="email" className="input" placeholder="Email" />
 
-          <form ref={refa} onSubmit={handleRegister} >
-            <h1 className="texto-pixel">Criar conta</h1>
+            <ErrorMessage
+              component="span"
+              name="email"
+              className="form-error"
+            />
+          </div>
+
+          <div className="form-group">
+            <Field name="nickname" className="input" placeholder="Nickname" />
+
+            <ErrorMessage
+              component="span"
+              name="nickname"
+              className="form-error"
+            />
+          </div>
+
+          <div className="form-group">
+            <Field name="senha" className="input" placeholder="Senha" />
+
+            <ErrorMessage
+              component="span"
+              name="senha"
+              className="form-error"
+            />
+          </div>
+
+          <button className="button" type="submit">
+            Cadastrar
+          </button>
+        </Form>
+        
+      </Formik>
+      </div>
+
+
+
+
+
+      
+      <div className="form-container sign-in-container">
+      <Formik
+        initialValues={{}}
+        onSubmit={handleLogin}
+        validationSchema={validationsLogin}
+      >
+        
+        <Form className="login-form">
+        <h1 className="texto-pixel">Login</h1>
             <div className="social-container"></div>
+          <div className="login-form-group">
+            <Field name="email" className="input" placeholder="Email" />
 
-            <input name="email" type="email" placeholder="Email" />
-            <input name="nickname" type="text" placeholder="Nickname" />
-            <input name="senha" type="password" placeholder="Senha" />
+            <ErrorMessage
+              component="span"
+              name="email"
+              className="form-error"
+            />
+          </div>
+          {/*Outro campo*/}
+          <div className="form-group">
+            <Field name="senha" className="input" placeholder="Senha" />
 
-            <button type="submit">Criar</button>
-          </form>
-          
-        </div>
+            <ErrorMessage
+              component="span"
+              name="senha"
+              className="form-error"
+            />
+          </div>
 
-        <div className="form-container sign-in-container">
+          <button className="button" type="submit">
+            Login
+          </button>
+        </Form>
+        
+      </Formik>
+      </div>
 
-       
-          <form ref={refb} onSubmit={handleLogin}>
-            <h1 className="texto-pixel">Login</h1>
-            <div className="social-container"></div>
-
-            <input name="emails" type="email" placeholder="Email" />
-            
-            <input name="senhas" type="password" placeholder="Senha" />
-
-            <button type="submit">Entrar</button>
-          </form>
-          
-          
-        </div>
-
-        <div className="overlay-container">
+      <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
               <h1 className="texto-pixel">Bem vindo!</h1>
@@ -139,13 +199,18 @@ function Login() {
             </div>
           </div>
         </div>
-        
-      </div>
+
+      
+    </div>
     </>
   );
-}
+};
 
 export default Login;
+
+
+
+
 
 
 

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useEffect, useState } from "react";
-import Login from "./routes/Login";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
