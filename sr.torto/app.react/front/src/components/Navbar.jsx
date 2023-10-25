@@ -13,12 +13,16 @@ import image from '../img/logo-torta.png'
 
 const Bloco = styled.header`
 background-color: #E4EFF8;
-height: 100px;
-width : 1000px;
+width:100%
+
+
 `;
 
 const Logo = styled.div`
 
+  
+    
+   
 
 `;
 
@@ -27,29 +31,28 @@ list-style-type:none;
     margin: 0px;
     padding: 0px;
     display: flex;
-    width: 100%;
     position: fixed;
-  top: 0;
-  left: 0;
+    top: 0;
+    left: 0;
+    width:100%
 `;
 
 const Ul  = styled.ul`
 list-style-type: none;
-margin: 0px;
-padding-top: 20px;
-padding-left: 570px;
-overflow: hidden;
-background-color: #E4EFF8;
-text-align: center;
-width: 50px;
+    margin: 0px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background-color: #E4EFF8;
+    text-align: center;
 `
 
 const Li = styled.li`
 float: left;
-padding: 5px;
+
 margin: 0px 50px ;
-border: 0px ;
-width: 100px;
+
+
 
 & :hover{
   background-color: #99b3bd;
@@ -57,14 +60,19 @@ width: 100px;
     border-bottom: solid 5px #000000;
     
     
+    
 }
 a {
+  
   display: block;
     color: rgb(0, 0, 0);
     text-align: center;
     padding: 18px 30px;
+    margin-bottom: 0px;
+    margin-top: 33px;
     text-decoration: none;
-    padding: 0px;
+    border-bottom: 5px ;
+    
 
 };`
 
@@ -78,9 +86,9 @@ const Navbarra = () => {
       
       
     <Bloco>
-    <Logo><img src={image} alt="seila" /></Logo>
+    
     <Nav>
-      
+    <Logo><img src={image} alt="seila" /></Logo>
       <Ul>
         <Li><Link to="/home">Home</Link></Li>
         <Li><Link to="/cadastro">Cadastro</Link></Li>
