@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import  Navbar  from "./components/Navbar";
+import  Navbarra  from "./components/Navbar";
 import Teste from "./routes/Teste";
 
 
@@ -32,7 +32,7 @@ function App() {
     
       
         
-      <Teste/>
+      <Navbarra/>
       <Container>
 
        </Container>
