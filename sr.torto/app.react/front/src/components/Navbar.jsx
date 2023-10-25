@@ -34,7 +34,8 @@ list-style-type:none;
     position: fixed;
     top: 0;
     left: 0;
-    width:100%
+    width:100%;
+    z-index: 1000;
 `;
 
 const Ul  = styled.ul`
@@ -45,19 +46,22 @@ list-style-type: none;
     overflow: hidden;
     background-color: #E4EFF8;
     text-align: center;
+    padding-left: 654px;
 `
 
 const Li = styled.li`
 float: left;
 
-margin: 0px 50px ;
+
+
+
 
 
 
 & :hover{
   background-color: #99b3bd;
     color: #000000;
-    border-bottom: solid 5px #000000;
+    border-bottom: solid 8px #000000;
     
     
     
@@ -67,11 +71,12 @@ a {
   display: block;
     color: rgb(0, 0, 0);
     text-align: center;
-    padding: 18px 30px;
+    padding: 18px 50px;
     margin-bottom: 0px;
-    margin-top: 33px;
+    margin-top: 42px;
     text-decoration: none;
     border-bottom: 5px ;
+    font-size: 22px;
     
 
 };`
@@ -88,13 +93,15 @@ const Navbarra = () => {
     <Bloco>
     
     <Nav>
-    <Logo><img src={image} alt="seila" /></Logo>
+    <Logo ><Link to="/inicial"><img src={image} alt="seila" /></Link>
+    
+    </Logo>
       <Ul>
         <Li><Link to="/home">Home</Link></Li>
-        <Li><Link to="/cadastro">Cadastro</Link></Li>
+        <Li><Link to="/login">Cadastro/Login</Link></Li>
         <Li><Link to="/casco">Casco</Link></Li>
         <Li><Link to="/inicial">Inicial</Link></Li>
-        <Li><Link to="/login">Login</Link></Li>
+        
         
       </Ul>
     </Nav>
