@@ -33,6 +33,7 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [tasksID, setTasksID] = useState([]);
   const [userNickname, setUserNickname] = useState('');
+  const [taskStatus, setTaskStatus] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,6 +54,7 @@ const Home = () => {
 
         setTasksID(taskIDs);
         setTasks(taskTexts);
+        setTaskStatus(Array(taskTexts.length).fill(false));
       } catch (error) {
         console.error('Erro ao decodificar o token JWT:', error);
       }
@@ -60,8 +62,6 @@ const Home = () => {
     
     fetchData();
   }, []);
-
-  const [taskStatus, setTaskStatus] = useState(Array(tasks.length).fill(false));
 
   const handleCheckboxToggle = (index) => {
     const newTaskStatus = taskStatus;
