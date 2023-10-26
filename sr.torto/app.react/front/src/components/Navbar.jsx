@@ -75,7 +75,7 @@ a {
     margin-bottom: 0px;
     margin-top: 42px;
     text-decoration: none;
-    border-bottom: 5px ;
+    border-bottom: solid 8px #6D8F9B;
     font-size: 22px;
     
 

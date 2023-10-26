@@ -34,9 +34,9 @@ function App() {
         
       <Navbarra/>
       <Container>
-
+      <Outlet/>
        </Container>
-        <Outlet/>
+        
       <Container>
 
       <Title>Footer</Title> 
