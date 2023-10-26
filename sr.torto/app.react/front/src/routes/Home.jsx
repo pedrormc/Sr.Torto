@@ -2,16 +2,51 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { FaTrash, FaEdit } from "react-icons/fa";
+import Form from 'react-bootstrap/Form';
+import CheckboxList from "../components/CheckboxList";
 
-const Container = styled.div`
+
+const Table = styled.table`
   width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 5px #ccc;
+  border-radius: 5px;
+  max-width: 1120px;
+  margin: 20px auto;
+  word-break: break-all;
+`;
+const Check = styled.input`
+margin: 0;
+padding: 0;
+border: 0;
+`
+
+export const Thead = styled.thead``;
+
+export const Tbody = styled.tbody``;
+
+export const Tr = styled.tr``;
+
+export const Th = styled.th`
+  text-align: start;
+  border-bottom: inset;
+  padding-bottom: 5px;
+
+  @media (max-width: 500px) {
+    ${(props) => props.onlyWeb && "display: none"}
+  }
+`;
+
+export const Td = styled.td`
+  padding-top: 15px;
+  text-align: ${(props) => (props.alignCenter ? "center" : "start")};
+  width: ${(props) => (props.width ? props.width : "auto")};
+
+  @media (max-width: 500px) {
+    ${(props) => props.onlyWeb && "display: none"}
+  }
 `;
 
 function findTokenJWT(){
@@ -33,6 +68,7 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [tasksID, setTasksID] = useState([]);
   const [userNickname, setUserNickname] = useState('');
+  const [taskStatus, setTaskStatus] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,6 +89,7 @@ const Home = () => {
 
         setTasksID(taskIDs);
         setTasks(taskTexts);
+        setTaskStatus(Array(taskTexts.length).fill(false));
       } catch (error) {
         console.error('Erro ao decodificar o token JWT:', error);
       }
@@ -60,8 +97,6 @@ const Home = () => {
     
     fetchData();
   }, []);
-
-  const [taskStatus, setTaskStatus] = useState(Array(tasks.length).fill(false));
 
   const handleCheckboxToggle = (index) => {
     const newTaskStatus = taskStatus;
@@ -86,10 +121,11 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Bem vindo {userNickname}!</h1>
+      <h1 >Bem vindo {userNickname}!</h1>
+      <Table>
       {tasks.map((task, index) => (
         <div key={index}>
-          <input
+          <Check
             type="checkbox"
             checked={taskStatus[index]}
             onChange={() => {
@@ -99,6 +135,29 @@ const Home = () => {
           {task}
         </div>
       ))}
+      </Table>
+      <Table>
+      <Tbody>
+        {tasks.map((task, index) => (
+          <Tr key={index}>
+            <Td width="30%">{task}</Td>
+            
+            <Td width="20%" onlyWeb>
+              {task.complete}
+            </Td>
+            <input
+            type="checkbox"
+            checked={taskStatus[index]}
+            onChange={() => {
+            deleteTask(index)
+            }}
+          />
+            
+          </Tr>
+        ))}
+      </Tbody>
+      </Table>
+      
     </div>
   )
 }

@@ -3,6 +3,7 @@ import "../styles/Login.css";
 import * as yup from "yup";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import Axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   useEffect(() => {
@@ -32,10 +33,12 @@ const Login = () => {
       const response = await Axios.post("https://api-c0ie.onrender.com/login", {
         email: values.email,
         senha: values.senha,
-      });
-      alert(response.data.msg);
+      })
+      
+      .then(({ data }) => toast.success(response.data.msg))
+      
       if(response.data.authorized) {
-        const tokenExpiration = new Date(new Date().getTime() + 3600 * 1000);
+        const tokenExpiration = new Date(new Date().getTime() + 3600 * 100000);
         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
         window.location.href = '/home';
         
@@ -52,10 +55,7 @@ const Login = () => {
       nickname: values.nickname,
       email: values.email,
       senha: values.senha,
-    }).then((response) => {
-      alert(response.data);
-      console.log(response);
-    });
+    }).then(({ data }) => toast.success(data));
   };
 
   const validationsLogin = yup.object().shape({
@@ -202,6 +202,7 @@ const Login = () => {
 
       
     </div>
+    <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
     </>
   );
 };

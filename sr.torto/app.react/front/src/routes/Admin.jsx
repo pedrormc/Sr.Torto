@@ -23,7 +23,6 @@ const Title = styled.h2``;
 
 const Linha = styled.div`
 width: 100%
-border: solid black 4px;
 `
 
 
@@ -54,7 +53,8 @@ function Admin() {
   //const [onEdit, setOnEdit] = useState(null);
   const getTasks = async () => {
     try {
-      const res = await axios.get("https://api-c0ie.onrender.com/task");
+      const res = await axios
+      .get("https://api-c0ie.onrender.com/task");
       setTasks(res.data[0].sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
       toast.error(error);
@@ -71,7 +71,7 @@ function Admin() {
       <Container>
       <Title>Quadro Admin</Title>
 
-      <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
+      
       <GridUser setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
 
       
