@@ -7,10 +7,34 @@ import Form from 'react-bootstrap/Form';
 import CheckboxList from "../components/CheckboxList";
 
 
+
+const H1 = styled.h1`
+color: aliceblue;
+text-align: center;
+`
+const H2 = styled.h2`
+color: #000000;
+margin: 0px 50px;
+margin-bottom: solid 5px black;
+`
+
+const Bloquin= styled.div`
+`
+
+const Bloquin2= styled.div`
+padding: 0;
+margin: 0;
+border: 0;
+border-bottom: solid 5px black;
+
+`
+const BlocoMain = styled.div``
+
+
 const Table = styled.table`
   width: 100%;
   background-color: #fff;
-  padding: 20px;
+  padding: 0px;
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
   max-width: 1120px;
@@ -18,7 +42,8 @@ const Table = styled.table`
   word-break: break-all;
 `;
 const Check = styled.input`
-margin: 0;
+margin: 50px 0px 0px 170px;
+
 padding: 0;
 border: 0;
 `
@@ -121,10 +146,13 @@ const Home = () => {
 
   return (
     <div>
-      <h1 >Bem vindo {userNickname}!</h1>
+      <H1 >Bem vindo {userNickname}!</H1>
       <Table>
+        <Bloquin2>
+        <H2>Essas são as suas tafas de hoje</H2>
+        </Bloquin2>
       {tasks.map((task, index) => (
-        <div key={index}>
+        <Bloquin key={index}>
           <Check
             type="checkbox"
             checked={taskStatus[index]}
@@ -133,7 +161,7 @@ const Home = () => {
             }}
           />
           {task}
-        </div>
+        </Bloquin>
       ))}
       </Table>
       <Table>

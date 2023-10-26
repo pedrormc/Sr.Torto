@@ -35,7 +35,7 @@ const Login = () => {
         senha: values.senha,
       })
       
-      .then(({ data }) => toast.success(response.data.msg))
+      alert(response.data.msg)
       
       if(response.data.authorized) {
         const tokenExpiration = new Date(new Date().getTime() + 3600 * 100000);

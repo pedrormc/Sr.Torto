@@ -20,7 +20,7 @@ width:100%
 
 const Logo = styled.div`
 
-  
+  width: min-content;
     
    
 
@@ -35,7 +35,9 @@ list-style-type:none;
     top: 0;
     left: 0;
     width:100%;
-    z-index: 1000;
+    
+    justify-content: space-between;
+    background-color:#E4EFF8;
 `;
 
 const Ul  = styled.ul`
@@ -45,12 +47,13 @@ list-style-type: none;
     border: 0;
     overflow: hidden;
     background-color: #E4EFF8;
-    text-align: center;
-    padding-left: 654px;
+    text-align: right;
+    right: 0px;
+    width: 50%;
 `
 
 const Li = styled.li`
-float: left;
+float: right;
 
 
 
@@ -71,9 +74,9 @@ a {
   display: block;
     color: rgb(0, 0, 0);
     text-align: center;
-    padding: 18px 50px;
+    padding: 18px 30px;
     margin-bottom: 0px;
-    margin-top: 42px;
+    padding-top: 45px;
     text-decoration: none;
     border-bottom: solid 8px #6D8F9B;
     font-size: 22px;
