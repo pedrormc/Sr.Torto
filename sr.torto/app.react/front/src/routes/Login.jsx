@@ -35,7 +35,7 @@ const Login = () => {
         senha: values.senha,
       })
       
-      .then(({ data }) => toast.success(response.data.msg))
+       toast.success(response.data.msg)
       
       if(response.data.authorized) {
         const tokenExpiration = new Date(new Date().getTime() + 3600 * 100000);
@@ -200,9 +200,9 @@ const Login = () => {
           </div>
         </div>
 
-      
+        <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
     </div>
-    <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER} />
+    
     </>
   );
 };
