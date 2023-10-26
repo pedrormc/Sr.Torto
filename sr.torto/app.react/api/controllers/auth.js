@@ -32,8 +32,7 @@ export const login = async (req, res) => {
           authorized: true,
           msg: "Usuário logado",
           accessToken: token
-        })
-        res.status(200).json("Usuário deletado com sucesso");
+        });
       } else {
         res.send({ msg: "Senha incorreta" });
       }
