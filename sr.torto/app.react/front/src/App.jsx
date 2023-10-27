@@ -15,14 +15,15 @@ import Teste from "./routes/Teste";
 
 const Container = styled.div`
   width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
+  
+  margin-top: 200px;
   display: flex;
-  flex-direction: column;
+  
   align-items: center;
   gap: 10px;
   
 `;
+
 const Title = styled.h2``;
 
 
@@ -37,11 +38,11 @@ function App() {
       <Outlet/>
        </Container>
         
-      <Container>
+      
 
       <Title>Footer</Title> 
       
-      </Container>
+     
       <GlobalStyle />
       
     </>

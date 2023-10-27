@@ -35,8 +35,8 @@ const Login = () => {
         senha: values.senha,
       })
       
-       toast.success(response.data.msg)
       
+      alert(response.data.msg)
       if(response.data.authorized) {
         const tokenExpiration = new Date(new Date().getTime() + 3600 * 100000);
         document.cookie = `token=${response.data.accessToken}; expires=${tokenExpiration.toUTCString()}; path=/`;
